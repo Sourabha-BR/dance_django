@@ -1,0 +1,138 @@
+{% extends 'dance_styles/base.html' %}
+{% block content %}
+<div class="container mt-5 pt-5">
+    <div class="text-center mb-5">
+        <h1 class="display-4 fw-bold" data-aos="fade-up">Our Expert Instructors</h1>
+        <p class="lead text-muted" data-aos="fade-up" data-aos-delay="100">Meet our talented team of dance professionals</p>
+    </div>
+
+    <div class="row g-4">
+        {% for instructor in instructors %}
+        <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
+            <div class="card instructor-card h-100">
+                <div class="instructor-image-wrapper">
+                    {% if instructor.name == "Isabella Martinez" %}
+                        <img src="https://images.unsplash.com/photo-1601288496920-b6154fe3626a?w=800&q=80&fit=crop" class="card-img-top instructor-image" alt="{{ instructor.name }}" loading="lazy">
+                    {% elif instructor.name == "James Chen" %}
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=80&fit=crop" class="card-img-top instructor-image" alt="{{ instructor.name }}" loading="lazy">
+                    {% elif instructor.name == "Aisha Patel" %}
+                        <img src="https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=800&q=80&fit=crop" class="card-img-top instructor-image" alt="{{ instructor.name }}" loading="lazy">
+                    {% elif instructor.name == "Marcus Johnson" %}
+                        <img src="https://images.unsplash.com/photo-1531384441138-2736e62e0919?w=800&q=80&fit=crop" class="card-img-top instructor-image" alt="{{ instructor.name }}" loading="lazy">
+                    {% elif instructor.name == "Sofia Petrova" %}
+                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=800&q=80&fit=crop" class="card-img-top instructor-image" alt="{{ instructor.name }}" loading="lazy">
+                    {% else %}
+                        <img src="https://via.placeholder.com/800x800?text={{ instructor.name|urlencode }}" class="card-img-top instructor-image" alt="{{ instructor.name }}" loading="lazy">
+                    {% endif %}
+                </div>
+                <div class="card-body text-center">
+                    <h3 class="card-title h4 mb-3">{{ instructor.name }}</h3>
+                    <p class="text-primary mb-2">{{ instructor.expertise }}</p>
+                    <p class="text-muted mb-3"><small>{{ instructor.years_of_experience }} Years of Experience</small></p>
+                    
+                    <div class="dance-styles mb-4">
+                        <h6 class="text-muted mb-2">Dance Styles</h6>
+                        <div class="d-flex flex-wrap justify-content-center gap-2">
+                            {% for style in instructor.dance_styles.all %}
+                            <span class="badge bg-primary-soft">{{ style.name }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    
+                    <p class="card-text mb-4">{{ instructor.bio|truncatewords:30 }}</p>
+                    
+                    <div class="social-links">
+                        {% if instructor.facebook_link %}
+                        <a href="{{ instructor.facebook_link }}" class="social-link" target="_blank" rel="noopener">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        {% endif %}
+                        {% if instructor.instagram_link %}
+                        <a href="{{ instructor.instagram_link }}" class="social-link" target="_blank" rel="noopener">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        {% endif %}
+                        {% if instructor.twitter_link %}
+                        <a href="{{ instructor.twitter_link }}" class="social-link" target="_blank" rel="noopener">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        {% endif %}
+                        {% if instructor.linkedin_link %}
+                        <a href="{{ instructor.linkedin_link }}" class="social-link" target="_blank" rel="noopener">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<style>
+    .instructor-card {
+        border: none;
+        border-radius: 15px;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .instructor-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+    }
+
+    .instructor-image-wrapper {
+        position: relative;
+        padding-top: 100%;
+        overflow: hidden;
+    }
+
+    .instructor-image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+
+    .instructor-card:hover .instructor-image {
+        transform: scale(1.1);
+    }
+
+    .social-links {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+    }
+
+    .social-link {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: var(--gradient-primary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        transition: all 0.3s ease;
+        text-decoration: none;
+    }
+
+    .social-link:hover {
+        transform: translateY(-3px);
+        color: white;
+        box-shadow: 0 5px 15px rgba(230, 68, 125, 0.3);
+    }
+
+    .bg-primary-soft {
+        background-color: rgba(230, 68, 125, 0.1);
+        color: var(--primary-color);
+        font-weight: 500;
+    }
+</style>
+{% endblock %}

@@ -1,0 +1,177 @@
+{% extends 'dance_styles/base.html' %}
+
+{% block title %}About Us - Dance Studio{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<div class="about-hero position-relative overflow-hidden p-3 p-md-5 text-center">
+    <div class="col-md-8 p-lg-5 mx-auto my-5">
+        <h1 class="display-4 fw-bold text-white">About Dance Studio</h1>
+        <p class="lead fw-normal text-white mb-4">Where Passion Meets Movement</p>
+        <div class="scroll-down">
+            <i class="fas fa-chevron-down fa-2x text-white animate-bounce"></i>
+        </div>
+    </div>
+</div>
+
+<div class="container my-5">
+    <!-- Our Story Section -->
+    <div class="row align-items-center mb-5 aos-animate" data-aos="fade-up">
+        <div class="col-lg-6 mb-4 mb-lg-0">
+            <div class="position-relative">
+                <img src="https://images.unsplash.com/photo-1535525153412-5a42439a210d" alt="Dance Studio Story" class="img-fluid rounded-3 shadow-lg">
+                <div class="position-absolute top-0 start-0 w-100 h-100 rounded-3 image-overlay"></div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="ps-lg-4">
+                <h2 class="display-6 fw-bold mb-4">Our Story</h2>
+                <p class="lead">Founded with a vision to make dance accessible to everyone, Dance Studio has been a hub for dance enthusiasts since 2020.</p>
+                <p>We believe that dance is not just an art form but a powerful medium of self-expression and personal growth. Our journey began with a simple dream: to create a space where anyone could discover the joy of dance.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mission Section -->
+    <div class="row align-items-center mb-5 flex-lg-row-reverse aos-animate" data-aos="fade-up">
+        <div class="col-lg-6 mb-4 mb-lg-0">
+            <div class="position-relative">
+                <img src="https://images.unsplash.com/photo-1547153760-18fc86324498" alt="Our Mission" class="img-fluid rounded-3 shadow-lg">
+                <div class="position-absolute top-0 start-0 w-100 h-100 rounded-3 image-overlay"></div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="pe-lg-4">
+                <h2 class="display-6 fw-bold mb-4">Our Mission</h2>
+                <p class="lead">Creating an inclusive environment where dancers of all levels can learn, grow, and express themselves.</p>
+                <p>We are committed to providing high-quality dance education while fostering a supportive and encouraging community. Our goal is to help every student discover their unique rhythm and style.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <div class="row g-4 py-5 aos-animate" data-aos="fade-up">
+        <h2 class="display-6 fw-bold text-center mb-5">What Sets Us Apart</h2>
+        <div class="col-lg-4">
+            <div class="feature-card text-center p-4 rounded-3 shadow-sm h-100">
+                <div class="feature-icon bg-primary bg-gradient text-white rounded-circle mb-3">
+                    <i class="fas fa-star"></i>
+                </div>
+                <h3 class="fs-4 fw-bold">Expert Instructors</h3>
+                <p>Learn from professional dancers with years of experience in various dance forms.</p>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="feature-card text-center p-4 rounded-3 shadow-sm h-100">
+                <div class="feature-icon bg-primary bg-gradient text-white rounded-circle mb-3">
+                    <i class="fas fa-music"></i>
+                </div>
+                <h3 class="fs-4 fw-bold">Diverse Styles</h3>
+                <p>Explore a wide range of dance styles from classical to contemporary.</p>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="feature-card text-center p-4 rounded-3 shadow-sm h-100">
+                <div class="feature-icon bg-primary bg-gradient text-white rounded-circle mb-3">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <h3 class="fs-4 fw-bold">Flexible Schedule</h3>
+                <p>Choose from multiple class timings that fit your schedule perfectly.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+:root {
+    --primary-color: #FF4B93;
+    --secondary-color: #6C63FF;
+    --dark-color: #2C2C2C;
+    --light-color: #F8F9FA;
+    --primary-rgb: 255, 75, 147;
+    --secondary-rgb: 108, 99, 255;
+}
+
+.about-hero {
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1546483875-ad9014c88eba') no-repeat center center;
+    background-size: cover;
+    min-height: 500px;
+    display: flex;
+    align-items: center;
+    margin-top: -48px;
+}
+
+.feature-icon {
+    width: 64px;
+    height: 64px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+}
+
+.feature-card {
+    transition: transform 0.3s ease;
+    background: white;
+}
+
+.feature-card:hover {
+    transform: translateY(-10px);
+}
+
+.scroll-down {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.animate-bounce {
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-30px);
+    }
+    60% {
+        transform: translateY(-15px);
+    }
+}
+
+.image-overlay {
+    background: linear-gradient(45deg, rgba(var(--primary-rgb), 0.3), rgba(var(--secondary-rgb), 0.3));
+    transition: all 0.3s ease;
+}
+
+.position-relative:hover .image-overlay {
+    background: linear-gradient(45deg, rgba(var(--primary-rgb), 0.1), rgba(var(--secondary-rgb), 0.1));
+}
+
+[data-aos] {
+    opacity: 0;
+    transition: all 0.5s ease;
+}
+
+[data-aos].aos-animate {
+    opacity: 1;
+}
+</style>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+    });
+</script>
+
+
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends 'dance_styles/base.html' %}
+
+{% block title %}Register for {{ dance_style.name }}{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card border-0 shadow-lg">
+                <div class="card-body p-5">
+                    <h2 class="text-center mb-4">Register for {{ dance_style.name }}</h2>
+                    
+                    {% if messages %}
+                    {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+
+                    <div class="card bg-light mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title">Class Details</h5>
+                            <p class="mb-2"><strong>Choreographer:</strong> {{ dance_style.choreographer }}</p>
+                            <p class="mb-2"><strong>Registration Fee:</strong> ₹{{ dance_style.registration_fee|floatformat:2 }} <small class="text-muted">(inclusive of all taxes)</small></p>
+                        </div>
+                    </div>
+
+                    <form method="post" class="needs-validation" novalidate>
+                        {% csrf_token %}
+                        <input type="hidden" name="dance_style" value="{{ dance_style.id }}">
+                        
+                        <div class="mb-4">
+                            <label for="name" class="form-label">Your Name</label>
+                            <input type="text" class="form-control" id="name" name="name" value="{{ user.first_name }}" required>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="class_slot" class="form-label">Select Class Slot</label>
+                            <select class="form-select" id="class_slot" name="class_slot" required>
+                                <option value="">Choose a time slot...</option>
+                                {% for slot in dance_style.class_slots.all %}
+                                <option value="{{ slot.id }}">{{ slot.day }} ({{ slot.start_time|time:"g:i A" }} - {{ slot.end_time|time:"g:i A" }})</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary btn-lg">Proceed to Payment</button>
+                            <a href="{% url 'dance_styles:dance_style_detail' dance_style.id %}" class="btn btn-secondary">Back to Details</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

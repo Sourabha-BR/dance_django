@@ -1,0 +1,56 @@
+{% extends 'dance_styles/base.html' %}
+
+{% block title %}Payment - Dance Studio{% endblock %}
+
+{% block content %}
+<div class="container my-5 py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card border-0 shadow-lg">
+                <div class="card-body p-5 text-center">
+                    <h2 class="mb-4">Complete Your Payment</h2>
+                    
+                    <div class="payment-details mb-4">
+                        <h5>Registration Details</h5>
+                        <p class="mb-1">Dance Style: <strong>{{ registration.dance_style.name }}</strong></p>
+                        <p class="mb-1">Choreographer: <strong>{{ registration.dance_style.choreographer }}</strong></p>
+                        <p class="mb-1">Amount: <strong>₹{{ registration.dance_style.registration_fee }}</strong></p>
+                        <p>Time Slot: <strong>{{ registration.class_slot.day }} {{ registration.class_slot.start_time }} to {{ registration.class_slot.end_time }}</strong></p>
+                    </div>
+
+                    <div class="qr-code-container mb-4">
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=upi://pay?pa=dancestudio@upi&pn=Dance%20Studio&am={{ registration.dance_style.registration_fee }}&cu=INR&tn=Registration%20for%20{{ registration.dance_style.name }}" 
+                             alt="Payment QR Code" 
+                             class="img-fluid">
+                    </div>
+
+                    <div class="text-muted mb-4">
+                        <small>Scan the QR code using any UPI app to complete the payment</small>
+                    </div>
+
+                    <form method="post" action="{% url 'dance_styles:confirm_payment' registration.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-success btn-lg px-5">
+                            <i class="fas fa-check me-2"></i>I've Completed the Payment
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.qr-code-container {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+}
+.payment-details {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: left;
+}
+</style>
+{% endblock %}

@@ -1,0 +1,76 @@
+{% extends 'dance_styles/base.html' %}
+{% block content %}
+<div class="container mt-5 pt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h1 class="h2">My Classes</h1>
+                <a href="{% url 'dance_styles:home' %}" class="btn btn-outline-primary">
+                    <i class="fas fa-plus me-2"></i>Register for a Class
+                </a>
+            </div>
+
+            {% if registrations %}
+            <div class="card">
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Class</th>
+                                <th>Schedule</th>
+                                <th>Registration Date</th>
+                                <th>Payment Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for registration in registrations %}
+                            <tr>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <img src="{{ registration.dance_style.image.url }}" alt="{{ registration.dance_style.name }}" class="rounded-circle me-3" width="50" height="50" style="object-fit: cover;">
+                                        <div>
+                                            <h6 class="mb-0">{{ registration.dance_style.name }}</h6>
+                                            <small class="text-muted">{{ registration.dance_style.choreographer }}</small>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <div class="fw-bold">{{ registration.class_slot.day }}</div>
+                                        <small class="text-muted">{{ registration.class_slot.start_time|time:"g:i A" }} - {{ registration.class_slot.end_time|time:"g:i A" }}</small>
+                                    </div>
+                                </td>
+                                <td>
+                                    {{ registration.registration_date|date:"M d, Y" }}
+                                </td>
+                                <td>
+                                    {% if registration.payment_status == 'completed' %}
+                                        <span class="badge bg-success">Paid</span>
+                                    {% elif registration.payment_status == 'pending' %}
+                                        <span class="badge bg-warning text-dark">Pending</span>
+                                    {% else %}
+                                        <span class="badge bg-secondary">{{ registration.get_payment_status_display }}</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            {% else %}
+            <div class="text-center py-5">
+                <div class="mb-4">
+                    <i class="fas fa-school fa-4x text-muted"></i>
+                </div>
+                <h3>No Classes Yet</h3>
+                <p class="text-muted">You haven't registered for any classes yet.</p>
+                <a href="{% url 'dance_styles:home' %}" class="btn btn-primary">
+                    Browse Available Classes
+                </a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

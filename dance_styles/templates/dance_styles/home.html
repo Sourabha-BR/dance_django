@@ -1,0 +1,238 @@
+{% extends 'dance_styles/base.html' %}
+
+{% block title %}Dance Studio - Home{% endblock %}
+
+{% block content %}
+<div class="hero-section text-center">
+    <div class="container">
+        <h1 class="display-4 mb-4">Dance Your Way to Excellence</h1>
+        <p class="lead mb-5">Join our vibrant community and learn from the best choreographers in the industry</p>
+        <div class="hero-buttons">
+            <a href="{% url 'dance_styles:about' %}" class="btn btn-primary btn-lg me-3">
+                <i class="fas fa-info-circle me-2"></i>Learn More
+            </a>
+        </div>
+        <a href="{% url 'dance_styles:signup' %}" class="btn btn-light btn-lg px-5 py-3 rounded-pill mt-4">Start Dancing Today</a>
+    </div>
+</div>
+
+<div class="container" style="margin-top: 120px;">
+    <style>
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes iconPulse {
+        0% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.1);
+        }
+        100% {
+            transform: scale(1);
+        }
+    }
+
+    .feature-box {
+        padding: 2rem;
+        border-radius: 10px;
+        background: white;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+        animation: fadeInUp 0.6s ease-out forwards;
+        opacity: 0;
+    }
+
+    .feature-box:hover {
+        transform: translateY(-10px);
+    }
+
+    .feature-box i {
+        animation: iconPulse 2s infinite;
+    }
+
+    .col-md-4:nth-child(1) .feature-box { animation-delay: 0.2s; }
+    .col-md-4:nth-child(2) .feature-box { animation-delay: 0.4s; }
+    .col-md-4:nth-child(3) .feature-box { animation-delay: 0.6s; }
+</style>
+
+<div class="row mb-5">
+        <div class="col-md-4 text-center mb-4">
+            <div class="feature-box">
+                <i class="fas fa-star fa-3x mb-3" style="color: var(--primary-color)"></i>
+                <h3>Expert Instructors</h3>
+                <p>Learn from professional dancers with years of experience</p>
+            </div>
+        </div>
+        <div class="col-md-4 text-center mb-4">
+            <div class="feature-box">
+                <i class="fas fa-music fa-3x mb-3" style="color: var(--secondary-color)"></i>
+                <h3>Various Styles</h3>
+                <p>Choose from a wide range of dance styles and techniques</p>
+            </div>
+        </div>
+        <div class="col-md-4 text-center mb-4">
+            <div class="feature-box">
+                <i class="fas fa-users fa-3x mb-3" style="color: var(--primary-color)"></i>
+                <h3>Community</h3>
+                <p>Join a supportive community of passionate dancers</p>
+            </div>
+        </div>
+    </div>
+
+    
+
+    <div class="container-fluid mt-5 pt-5 px-4">
+        <div class="row mb-5">
+            <div class="col-12">
+                <h1 class="display-4 fw-bold text-center mb-2">Explore Dance Styles</h1>
+                <p class="lead text-center text-muted">Find Your Perfect Dance Style</p>
+            </div>
+        </div>
+        
+        <div class="row g-4">
+            {% for style in dance_styles %}
+            <div class="col-md-4">
+                <div class="dance-style-card position-relative overflow-hidden rounded-3 shadow-sm">
+                    {% if style.image %}
+                    <img src="{{ style.image.url }}" class="dance-style-img" alt="{{ style.name }}">
+                    {% elif style.name == 'Hip Hop' %}
+                    <img src="https://images.unsplash.com/photo-1601931935934-17c3717239ab" class="dance-style-img" alt="Hip Hop">
+                    {% else %}
+                    <img src="https://images.unsplash.com/photo-1557499305-0af888c3d8ec" class="dance-style-img" alt="{{ style.name }}">
+                    {% endif %}
+                    <div class="dance-style-overlay">
+                        <h3 class="dance-style-title mb-4">{{ style.name }}</h3>
+                        <a href="{% url 'dance_styles:dance_style_detail' style.id %}" class="btn btn-light rounded-pill px-4 py-2">
+                            Learn More <i class="fas fa-arrow-right ms-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center">
+                <div class="empty-state py-5">
+                    <i class="fas fa-music fa-4x mb-3 text-muted"></i>
+                    <h3>No Dance Styles Available</h3>
+                    <p class="text-muted">Check back soon for exciting dance classes!</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+
+
+    <style>
+        .dance-style-card {
+            height: 300px;
+            transition: transform 0.3s ease;
+        }
+
+        .dance-style-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .dance-style-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .dance-style-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.1) 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .dance-style-title {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 600;
+            text-align: center;
+            margin: 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .dance-style-card:hover .dance-style-overlay {
+            background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.6) 50%, rgba(0,0,0,0.2) 100%);
+        }
+
+        .btn-light {
+            font-weight: 500;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+        }
+
+        .dance-style-card:hover .btn-light {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .feature-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .feature-list li {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .feature-list li i {
+            margin-right: 1rem;
+            width: 24px;
+        }
+
+        .video-promo-wrapper {
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        .video-promo-wrapper:hover {
+            transform: translateY(-5px);
+        }
+
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            background: rgba(220, 53, 69, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            box-shadow: 0 0 30px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+        }
+
+        .video-promo-wrapper:hover .play-button {
+            background: rgb(220, 53, 69);
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+    </style>
+</div>
+{% endblock %}
