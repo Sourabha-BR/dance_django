@@ -30,10 +30,11 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG') == 'True'
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['.onrender.com', '127.0.0.1', 'localhost']
 
 # CSRF Trusted Origins
 CSRF_TRUSTED_ORIGINS = [
+    'https://my-dance-app.onrender.com',
     'http://127.0.0.1:8000',
     'http://localhost:8000',
     'http://127.0.0.1:63466',
